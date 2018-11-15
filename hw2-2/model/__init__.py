@@ -1,2 +1,2 @@
-from .seq2seq import S2S_Net
-from .mask_loss import LanguageModelCriterion
+from .encoder import EncoderRNN
+from .decoder import LuongAttnDecoderRNN

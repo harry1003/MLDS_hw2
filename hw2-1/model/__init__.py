@@ -1,2 +1,2 @@
-from .seq2seq import S2S_Net
-from .S2VT import S2VT_Net
+from .S2VT import S2VTModel
+from .mask_loss import LanguageModelCriterion

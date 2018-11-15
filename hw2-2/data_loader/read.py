@@ -13,17 +13,17 @@ with open(PATH_model, 'rb') as file:
 word_count_threshold = 3
 
 
-def readfile():
-    question = open(PATH_Q, 'r')
-    answer = open(PATH_A, 'r')
+def readfile(path_Q, path_A):
+    question = open(path_Q, 'r')
+    answer = open(path_A, 'r')
     q = question.readlines()
     a = answer.readlines()
     return q, a
             
     
 class DataLoader():
-    def __init__(self, sent_len):
-        q, a = readfile()
+    def __init__(self, sent_len, path_Q=PATH_Q, path_A=PATH_A):
+        q, a = readfile(path_Q, path_A)
         self.question = q
         self.answer = a
         self.sent_len = sent_len
@@ -58,6 +58,9 @@ class DataLoader():
         question = torch.Tensor(question)
         answer = torch.Tensor(answer)
         mask = torch.Tensor(mask)
+        question = torch.transpose(question, 0, 1)
+        answer = torch.t(answer)
+        mask = torch.t(mask)
         return question, answer, mask
     
     def turn_sent_to_vec(self, sentence):

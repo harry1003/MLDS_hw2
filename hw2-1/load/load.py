@@ -13,9 +13,6 @@ def load_data(PATH):
     file.close
     # load data
     data = []
-#     # temp
-#     file_name = file_name[:10]
-#     # temp
     for name in file_name:
         data_path = PATH + "/feat/" + name + ".npy"
         d = np.load(data_path)
@@ -30,7 +27,8 @@ def load_label(PATH):
     return label
 
 
-def load_everything(PATH, mode):
+def load_everything(mode):
+    PATH = "./MLDS_hw2_1_data/"
     if mode == "train":
         PATH = PATH + "training_"
     elif mode == "test":
@@ -47,18 +45,17 @@ word_count_threshold = 3
 
 
 class data_loader():
-    def __init__(self, data, label, sent_len):
+    def __init__(self, data, label, encode_len, word2id=0, id2word=0, voc_size=0, max_lenth=0):
         super(data_loader, self).__init__()
         self.data = data
         self.label = label
-        word2id, id2word, max_lenth, voc_num = preprocess(label)
+        if word2id == 0:
+            word2id, id2word, max_lenth, voc_size = preprocess(label)
         self.word2id = word2id
         self.id2word = id2word
         self.max_lenth = max_lenth
-        self.sent_len = sent_len
-        self.voc_num = voc_num
-        self.input_size = data.shape[2]
-        self.time_step = data.shape[1]
+        self.encode_len = encode_len
+        self.voc_size = voc_size
         self.data_size = len(data)
 
     def load_on_batch(self, start, end, epochs):
@@ -84,7 +81,7 @@ class data_loader():
         mask = []
         sentence = sentence.split('.')[0]
         sentence = sentence.split(' ')
-        for i in range(self.sent_len):
+        for i in range(self.encode_len):
             if i < len(sentence):
                 mask.append(1)
                 w = sentence[i]
