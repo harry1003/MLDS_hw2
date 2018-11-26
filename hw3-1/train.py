@@ -24,7 +24,7 @@ epochs = 200
 numWorkers = 4
 imageSize = 64
 batchSize = 64
-dataPath = 'data/'
+dataPath = 'extra_data/'
 savePath_img = './imgs/' + "dt_" + str(d_t) + '_'
 savePath_model = './model/' + "dt_" + str(d_t) + '_'
 

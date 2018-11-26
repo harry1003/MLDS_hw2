@@ -3,7 +3,7 @@ import torch.nn.utils.spectral_norm as S_N
 
 
 class Generator_base(nn.Module):
-    def __init__(self, noise_size, ngf):
+    def __init__(self, noise_size, ngf, sol=0.2):
         super(Generator_base, self).__init__()
         self.ngf = ngf
         # [batch, noise_size] -> [batch, ngf * 8 * 4 * 4]
